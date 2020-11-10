@@ -59,6 +59,7 @@ jobs:
         run: nf-core -l lint_log.txt lint ${GITHUB_WORKSPACE} --markdown lint_results.md
 
       - name: Save PR number
+        if: ${{ always() }}
         run: echo ${{ github.event.pull_request.number }} > PR_number.txt
 
       - name: Upload linting log file artifact
