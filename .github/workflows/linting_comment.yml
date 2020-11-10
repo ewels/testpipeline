@@ -15,9 +15,6 @@ jobs:
         with:
           workflow: linting.yml
 
-      - name: Display structure of downloaded files
-        run: ls -R
-
       - uses: pCYSl5EDgo/cat@master
         id: lint_md
         with:
