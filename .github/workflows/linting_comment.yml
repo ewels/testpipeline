@@ -15,19 +15,15 @@ jobs:
         with:
           workflow: linting.yml
 
-      - uses: pCYSl5EDgo/cat@master
-        id: lint_md
-        with:
-          path: linting-logs/lint_results.md
-
-      - uses: pCYSl5EDgo/cat@master
-        id: pr_number
-        with:
-          path: linting-logs/PR_number.txt
+      - name: Get file contents
+        id: lint
+        run: |
+          echo ::set-output name=lint_md::$(cat linting-logs/lint_results.md)
+          echo ::set-output name=pr_number::$(cat linting-logs/PR_number.txt)
 
       - name: Post PR comment
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          number: ${{ steps.pr_number.outputs.text }}
-          message: ${{ steps.lint_md.outputs.text }}
+          number: ${{ steps.lint.outputs.pr_number }}
+          message: ${{ steps.lint.outputs.lint_md }}
