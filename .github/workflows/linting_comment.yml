@@ -18,8 +18,8 @@ jobs:
       - name: Get file contents
         id: lint
         run: |
-          echo ::set-output name=lint_md::"$(cat linting-logs/lint_results.md)"
-          echo ::set-output name=pr_number::$(cat linting-logs/PR_number.txt)
+          echo "::set-output name=lint_md::$(cat linting-logs/lint_results.md)"
+          echo "::set-output name=pr_number::$(cat linting-logs/PR_number.txt)"
 
       - name: Post PR comment
         uses: marocchino/sticky-pull-request-comment@v2
