@@ -21,7 +21,7 @@ jobs:
       - uses: pCYSl5EDgo/cat@master
         id: lint_md
         with:
-          path: lint_results.md
+          path: linting-logs/lint_results.md
 
       - name: Post PR comment
         uses: marocchino/sticky-pull-request-comment@v2
