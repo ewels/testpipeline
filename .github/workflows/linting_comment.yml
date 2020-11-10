@@ -30,9 +30,4 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           number: ${{ steps.pr_number.outputs.text }}
-          message: |
-            This is a test!
-            ----
-            ${{ steps.lint_md.outputs.text }}
-            ----
-            END
+          message: ${{ steps.lint_md.outputs.text }}
