@@ -15,19 +15,13 @@ jobs:
         with:
           workflow: linting.yml
 
-      - name: Get file contents
-        id: lint
-        run: |
-          LINTMD="$(cat linting-logs/lint_results.md)"
-          LINTMD="${REPORT//'%'/'%25'}"
-          LINTMD="${REPORT//$'\n'/'%0A'}"
-          LINTMD="${REPORT//$'\r'/'%0D'}"
-          echo "::set-output name=lint_md::$LINTMD"
-          echo "::set-output name=pr_number::$(cat linting-logs/PR_number.txt)"
+      - name: Get PR number
+        id: pr_number
+        run: echo "::set-output name=pr_number::$(cat linting-logs/PR_number.txt)"
 
       - name: Post PR comment
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          number: ${{ steps.lint.outputs.pr_number }}
-          message: ${{ steps.lint.outputs.lint_md }}
+          number: ${{ steps.pr_number.outputs.pr_number }}
+          path: linting-logs/lint_results.md
