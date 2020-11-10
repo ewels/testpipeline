@@ -23,10 +23,16 @@ jobs:
         with:
           path: linting-logs/lint_results.md
 
+      - uses: pCYSl5EDgo/cat@master
+        id: pr_number
+        with:
+          path: linting-logs/PR_number.txt
+
       - name: Post PR comment
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          number: ${{ steps.pr_number.outputs.text }}
           message: |
             This is a test!
             ----
